@@ -1,7 +1,7 @@
 import { Suspense, useRef } from 'react'
 import { Canvas } from "@react-three/fiber"
 import { Environment, PresentationControls, Html, MeshReflectorMaterial, RandomizedLight, AccumulativeShadows } from '@react-three/drei';
-import Female from './models/Female';
+//import Female from './models/Female';
 import AnimatedFemale from './models/AnimatedFemale';
 import { Stage } from './Stage';
 

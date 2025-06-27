@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState, useLayoutEffect } from 'react';
 import { useGLTF, useAnimations } from "@react-three/drei"
 import { GlowMaterial } from '../materials/GlowMaterial';
 // import { ColorMaterial } from '../materials/ColorMaterial';
@@ -102,11 +102,10 @@ export default function AnimatedFemale({ ref, ...props }) {
     }, [materialProps, transparentMat]);
 
     useEffect(() => {
-        console.log('1');
         actions['idle1']?.reset().setLoop(THREE.LoopRepeat).play();
     }, [actions]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!nodes || !nodes.body.parent) return;
         const mesh = nodes.body;
         const boneParent = mesh.parent;
@@ -116,18 +115,31 @@ export default function AnimatedFemale({ ref, ...props }) {
         mesh.material = transparentMat;
         mesh.renderOrder = 0;
 
-        const overlays = [glowMat, heartMat, stomachMat].map((mat, i) => {
+        const overlays = [
+            glowMat,
+            heartMat,
+            stomachMat
+        ].map((mat, i) => {
             const overlay = new THREE.SkinnedMesh(mesh.geometry, mat);
 
-            overlay.bind(mesh.skeleton, mesh.bindMatrix.clone());
+            //overlay.bind(mesh.skeleton, mesh.bindMatrix.clone());
             overlay.name = `overlay_${i}`;
             overlay.renderOrder = 1;
-
+            
+            //boneParent.add(overlay);
+            //console.log("boneParent", boneParent);
             return overlay;
         })
 
-        overlays.forEach(overlay => boneParent.add(overlay));
-    }, [nodes, scene, glowMat, heartMat, stomachMat, transparentMat])
+        //overlays.forEach(overlay => boneParent.add(overlay));
+    }, [
+        nodes,
+        scene,
+        glowMat,
+        heartMat,
+        stomachMat,
+        transparentMat
+    ]);
 
     return (
         <group {...props} dispose={null}>
