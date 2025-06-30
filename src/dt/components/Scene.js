@@ -1,6 +1,6 @@
 import { Suspense, useRef } from 'react'
 import { Canvas } from "@react-three/fiber"
-import { Environment, PresentationControls, Html, MeshReflectorMaterial, RandomizedLight, AccumulativeShadows } from '@react-three/drei';
+import { Environment, PresentationControls, Html, MeshReflectorMaterial, RandomizedLight, AccumulativeShadows, Stats } from '@react-three/drei';
 //import Female from './models/Female';
 import AnimatedFemale from './models/AnimatedFemale';
 import { Stage } from './Stage';
@@ -29,18 +29,17 @@ export function Scene() {
                         </PresentationControls>
                     </Stage>
 
-                    <Html scale={0.1} position={[0.3, 1.3, 1]} transform occlude>
+                    <Html scale={0.1} position={[0.3, 1.3, 1]} transform>
                         <div className="annotation">
                             심장  <span style={{ color: 'red' }}>32.6</span> <span style={{ fontSize: '1.5em' }}>😮</span>
                         </div>
                     </Html>
 
-                    <Html scale={0.1} position={[-0.35, 0.8, 1]} transform occlude>
+                    <Html scale={0.1} position={[-0.35, 0.8, 1]} transform>
                         <div className="annotation">
                             대장  <span style={{ color: 'lime' }}>87.3</span> <span style={{ fontSize: '1.5em' }}>😊</span>
                         </div>
                     </Html>
-
 
                     <ambientLight intensity={0.5} />
                     <spotLight position={[50, 50, -30]} castShadow />
@@ -67,7 +66,10 @@ export function Scene() {
                             roughness={1} />
                     </mesh>
                 </Suspense>
+
+                <Stats className="stats" />  
             </Canvas>
         </div>
     );
 }
+

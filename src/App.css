@@ -54,3 +54,8 @@ body {
   left: 0px;
   top: 0px;
 }
+
+.stats canvas {
+    transform: scale(2); 
+    transform-origin: top left;
+}
